@@ -69,4 +69,10 @@ public class AppDbHelper extends SQLiteOpenHelper {
         tmp.setName(cursor.getString(cursor.getColumnIndex(ProfilEntry.COLUMN_NAME_NAME)));
         return tmp;
     }
+
+    public Cursor getProfilesCursor() {
+        SQLiteDatabase sql = this.getReadableDatabase();
+        Cursor cursor = sql.query(ProfilEntry.TABLE_NAME, null, null, null, null, null, null, null);
+        return cursor;
+    }
 }

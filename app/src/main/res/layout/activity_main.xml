@@ -33,7 +33,7 @@
         android:layout_marginStart="7dp" />
 
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/profilListView"
         android:layout_width="288dp"
         android:layout_height="218dp"
         android:layout_marginLeft="-15dp"
