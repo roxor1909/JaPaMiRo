@@ -18,5 +18,5 @@
         android:layout_height="wrap_content"
         android:text="Test Profil Name"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="30dp" />
+        android:textSize="30sp" />
 </LinearLayout>
