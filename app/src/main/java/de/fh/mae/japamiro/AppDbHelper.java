@@ -1,8 +1,14 @@
 package de.fh.mae.japamiro;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.fh.mae.japamiro.AppContract.*;
 
@@ -33,6 +39,34 @@ public class AppDbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // ToDo Updatestrategie überlegen und implementieren
         // Momentan wird einfach alles gelöscht
-        db.execSQL(SQL_CREATE_ENTRIES);onCreate(db);
+        db.execSQL(SQL_CREATE_ENTRIES);
+        onCreate(db);
+    }
+
+    public void addProfile(Profil profil) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(ProfilEntry.COLUMN_NAME_NAME, profil.getName());
+        long newRowId = db.insert(ProfilEntry.TABLE_NAME, null, values);
+        Log.i("add-profiles", Long.toString(newRowId));
+    }
+
+    public List<Profil> getProfiles() {
+        SQLiteDatabase sql = this.getReadableDatabase();
+        Cursor cursor = sql.query(ProfilEntry.TABLE_NAME, null, null, null, null, null, null, null);
+        List<Profil> list = new ArrayList<Profil>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            list.add(this.cursorToProfil(cursor));
+            cursor.moveToNext();
+        }
+        return list;
+    }
+
+    private Profil cursorToProfil(Cursor cursor) {
+        Profil tmp = new Profil();
+        tmp.setId(cursor.getInt(cursor.getColumnIndex(ProfilEntry._ID)));
+        tmp.setName(cursor.getString(cursor.getColumnIndex(ProfilEntry.COLUMN_NAME_NAME)));
+        return tmp;
     }
 }
