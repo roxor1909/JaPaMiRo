@@ -19,7 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".InfoActivity" />
-        <activity android:name=".ProfilActivity"></activity>
+        <activity android:name=".ProfilActivity" />
+        <activity android:name=".WindVerlaufActivity" />
+        <activity android:name=".WindActivity"></activity>
     </application>
 
 </manifest>
