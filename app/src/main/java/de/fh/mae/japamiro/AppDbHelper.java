@@ -20,14 +20,30 @@ public class AppDbHelper extends SQLiteOpenHelper {
 
     // ToDo nach Finalisierung des Datenmodells erneut anpassen
     private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + ProfilEntry.TABLE_NAME + "( " + ProfilEntry._ID + " INTEGER PRIMARY KEY, " + ProfilEntry.COLUMN_NAME_NAME + " TEXT)";
+            "CREATE TABLE " + ProfilEntry.TABLE_NAME + "( "
+                    + ProfilEntry._ID + " INTEGER PRIMARY KEY, "
+                    + ProfilEntry.COLUMN_NAME_NAME + " TEXT, "
+                    + ProfilEntry.COLUMN_NAME_SELECTED_WINDRICHTUNG + " TEXT, "
+                    + ProfilEntry.COLUMN_NAME_WINDRICHTUNG + " TEXT, "
+                    + ProfilEntry.COLUMN_NAME_AKKU_WARNUNG + " INTEGER, "
+                    + ProfilEntry.COLUMN_NAME_SELECTED_WARNUNG + " BOOLEAN, "
+                    + ProfilEntry.COLUMN_NAME_MIN_WINDGESCHWINDIGKEIT + " INTEGER, "
+                    + ProfilEntry.COLUMN_NAME_SELECTED_MIN_WIND + " BOOLEAN, "
+                    + ProfilEntry.COLUMN_NAME_ZEITRAUM + " INTEGER, "
+                    + ProfilEntry.COLUMN_NAME_SELECTED_ZEITRAUM + " BOOLEAN, "
+                    + ProfilEntry.COLUMN_NAME_MIN_TEMP + " INTEGER, "
+                    + ProfilEntry.COLUMN_NAME_SELECTED_MIN_TEMP + " BOOLEAN, "
+                    + ProfilEntry.COLUMN_NAME_STATION + " STRING"
+                    + ")";
     private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + ProfilEntry.TABLE_NAME;
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "App.db";
 
 
     public AppDbHelper(Context context) {
+
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        Log.i("AppDbHelper", SQL_CREATE_ENTRIES);
     }
 
     @Override
@@ -39,7 +55,7 @@ public class AppDbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // ToDo Updatestrategie überlegen und implementieren
         // Momentan wird einfach alles gelöscht
-        db.execSQL(SQL_CREATE_ENTRIES);
+        db.execSQL(SQL_DELETE_ENTRIES);
         onCreate(db);
     }
 
