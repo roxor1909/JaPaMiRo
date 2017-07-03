@@ -2,4 +2,30 @@
     <string name="app_name">Wheatherly &amp; Windy</string>
     <string name="neues_profil">Neues Profil erstellen</string>
     <string name="profil_auswahl">Profil auswählen</string>
+    <string name="name">Name</string>
+    <string name="kriterien">Kriterien:</string>
+    <string name="windrichtung">Windrichtung:</string>
+    <string name="min_windgeschwindigkeit">min. Windgeschwindigkeit:</string>
+    <string name="zeitraum">Zeitraum:</string>
+    <string name="min_temperatur">min. Temperatur:</string>
+    <string name="warnung_bei_verbl_akkudauer_von">Warnung bei verbl. \nAkkudauer von:</string>
+    <string name="station_w_hlen">Station wählen</string>
+    <string name="fertig">Fertig</string>
+    <string name="Zeitraum">min</string>
+    <string name="einheitAkkudauer">min</string>
+    <string name="minTemp">°C</string>
+    <string-array name="windrichtung">
+        <item>N</item>
+        <item>O</item>
+        <item>S</item>
+        <item>W</item>
+    </string-array>
+    <string-array name="stationen_namen">
+        <item>Phönixsee Dortmund</item>
+        <item>Bodensee Bayern</item>
+    </string-array>
+    <string-array name="stationen_url">
+        <item>ftp://user:password@phoenixsee-dortmund.de/wetterstation</item>
+        <item>ftp://user:passwort@bodensee-baxern.de/wetterstation</item>
+    </string-array>
 </resources>

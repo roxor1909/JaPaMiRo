@@ -13,21 +13,34 @@ public class Profil {
     private boolean selectedMinWindgeschwindigkeit;
     private Integer zeitraum;
     private boolean selectedZeitraum;
-    private Integer mindTemperatur;
+    private Integer minTemperatur;
     private boolean selectedMinTemperatur;
     private Integer warnung;
     private boolean selectedWarnung;
     private String station;
 
-    Profil() {
+    public Profil() {
 
     }
 
-    public Profil(int id, String name) {
+    public Profil(String name, String windrichtung, boolean selectedWindrichtung,
+                  Integer minWindgeschwindigkeit, boolean selectedMinWindgeschwindigkeit, Integer zeitraum,
+                  boolean selectedZeitraum, Integer minTemperatur, boolean selectedMinTemperatur, Integer warnung,
+                  boolean selectedWarnung, String station) {
         this.id = id;
         this.name = name;
+        this.windrichtung = windrichtung;
+        this.selectedWindrichtung = selectedWindrichtung;
+        this.minWindgeschwindigkeit = minWindgeschwindigkeit;
+        this.selectedMinWindgeschwindigkeit = selectedMinWindgeschwindigkeit;
+        this.zeitraum = zeitraum;
+        this.selectedZeitraum = selectedZeitraum;
+        this.minTemperatur = minTemperatur;
+        this.selectedMinTemperatur = selectedMinTemperatur;
+        this.warnung = warnung;
+        this.selectedWarnung = selectedWarnung;
+        this.station = station;
     }
-
 
     public String getWindrichtung() {
         return windrichtung;
@@ -77,12 +90,12 @@ public class Profil {
         this.selectedZeitraum = selectedZeitraum;
     }
 
-    public Integer getMindTemperatur() {
-        return mindTemperatur;
+    public Integer getMinTemperatur() {
+        return minTemperatur;
     }
 
-    public void setMindTemperatur(Integer mindTemperatur) {
-        this.mindTemperatur = mindTemperatur;
+    public void setMinTemperatur(Integer minTemperatur) {
+        this.minTemperatur = minTemperatur;
     }
 
     public boolean isSelectedMinTemperatur() {
@@ -132,5 +145,20 @@ public class Profil {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String toString() {
+        return "ID: " + this.id
+                + "\nName " + this.name
+                + "\nWindrichtung " + this.windrichtung
+                + "\nSelWindrichtung " + this.selectedWindrichtung
+                + "\nMinWInd: " + this.minWindgeschwindigkeit
+                + "\nSelminWInd: " + this.selectedMinWindgeschwindigkeit
+                + "\nZeitraum: " + this.zeitraum
+                + "\nMinTemp: " + this.minTemperatur
+                + "\nSelMinTemp: " + this.selectedMinTemperatur
+                + "\nWarnung: " + this.warnung
+                + "\nSelWarnung: " + this.selectedWarnung
+                + "\nStation: " + this.station;
     }
 }

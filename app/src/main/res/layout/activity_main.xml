@@ -8,7 +8,7 @@
     tools:context="de.fh.mae.japamiro.MainActivity">
 
     <Button
-        android:id="@+id/bInfo"
+        android:id="@+id/buttonInfo"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bInfo"
+        app:layout_constraintTop_toBottomOf="@+id/buttonInfo"
         app:srcCompat="@drawable/logo"
         tools:layout_editor_absoluteX="0dp" />
 
@@ -51,9 +51,11 @@
     <ListView
         android:id="@+id/profilListView"
         android:layout_width="fill_parent"
-        android:layout_height="169dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="-7dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bAddProfile"
         app:layout_constraintLeft_toLeftOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -74,6 +76,10 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
+
+    <!--
+https://stackoverflow.com/questions/10873128/wrapping-a-listview-inside-a-linearlayout
+-->
 
 
 </android.support.constraint.ConstraintLayout>

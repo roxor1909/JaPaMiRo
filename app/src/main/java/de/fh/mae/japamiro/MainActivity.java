@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    public AppDbHelper dbHelper;
+    private AppDbHelper dbHelper;
     public static final String EXTRA_ID = "de.fh.mae.japamiro.ID";
 
     @Override
@@ -27,6 +27,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         dbHelper = new AppDbHelper(this);
         Log.i("mainActivity", "on Create");
+        this.initListView();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
         this.initListView();
     }
 
