@@ -188,4 +188,26 @@ public class AppDbHelper extends SQLiteOpenHelper {
         String[] selectionArgs = {Long.toString(id)};
         return db.update(ProfilEntry.TABLE_NAME, values, selection, selectionArgs);
     }
+
+    public String getNameFromId(long id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] projection = {
+                ProfilEntry.COLUMN_NAME_NAME
+        };
+        String selection = ProfilEntry._ID + " = ?";
+        String[] selectionArgs = {Long.toString(id)};
+
+        Cursor cursor = db.query(
+                ProfilEntry.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+        cursor.moveToNext();
+        return cursor.getString(cursor.getColumnIndex(ProfilEntry.COLUMN_NAME_NAME));
+    }
 }
