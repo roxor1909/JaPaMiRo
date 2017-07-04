@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <wind_history>
+
+        <weather>
+                <zeit>13:00</zeit>
+                <luftdruck>1015</luftdruck>
+                <temperatur>16</temperatur>
+                <regen>5</regen>
+        </weather>
+
+        <weather>
+                <zeit>14:00</zeit>
+                <luftdruck>1014</luftdruck>
+                <temperatur>17</temperatur>
+                <regen>5</regen>
+        </weather>
+
+        <weather>
+                <zeit>15:00</zeit>
+                <luftdruck>1015</luftdruck>
+                <temperatur>17</temperatur>
+                <regen>10</regen>
+        </weather>
+
+        <weather>
+            <zeit>16:00</zeit>
+            <luftdruck>1012</luftdruck>
+            <temperatur>14</temperatur>
+            <regen>8</regen>
+        </weather>
+
+
+</wind_history>
