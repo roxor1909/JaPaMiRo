@@ -76,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void zeigeWindHistory( View v ) {
         Intent intent = new Intent( this, WindVerlaufActivity.class);
+        long id = 1;
+        intent.putExtra(MainActivity.EXTRA_ID, id);
         startActivity( intent );
     }
 
