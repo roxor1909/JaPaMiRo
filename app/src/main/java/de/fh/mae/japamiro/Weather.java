@@ -11,7 +11,9 @@ public class Weather {
     private double temperatur;
     private double regen;
 
-    public Weather(){ }
+    public Weather(){
+
+    }
 
       // set
 
