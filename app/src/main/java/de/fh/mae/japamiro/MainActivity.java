@@ -31,13 +31,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         this.initListView();
     }
 
 
     private void initListView() {
+
         ListView lvProfiles = (ListView) findViewById(R.id.profilListView);
         Cursor cursor = dbHelper.getProfilesCursor();
         ProfilCursorAdapter adapter = new ProfilCursorAdapter(this, cursor);
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+
     }
 
 
