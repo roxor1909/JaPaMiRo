@@ -72,12 +72,6 @@
         android:text="@string/neues_profil"
         android:textSize="18sp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/weiterleitung"
-        android:onClick="zeigeWindHistory"/>
-
 
     <LinearLayout
         android:layout_width="fill_parent"

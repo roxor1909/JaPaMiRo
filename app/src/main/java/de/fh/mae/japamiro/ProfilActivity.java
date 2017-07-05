@@ -3,6 +3,7 @@ package de.fh.mae.japamiro;
 import android.content.Context;
 import android.content.Intent;
 import android.database.SQLException;
+import android.icu.util.Calendar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -34,7 +35,7 @@ public class ProfilActivity extends AppCompatActivity {
     private AppDbHelper dbHelper;
     private Button button;
     // safes the id from the intent or -1 wheter the activity has been started without existing profil
-    private long startWithID;
+    private long startID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +50,13 @@ public class ProfilActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra(MainActivity.EXTRA_ID)) {
             long id = intent.getLongExtra(MainActivity.EXTRA_ID, -1);
-            this.startWithID = id;
+            this.startID = id;
             Log.i("ProfilActivity", "start Activity with id= " + id);
             //ToDO DIe Daten laden und ausfüllen
             Profil profil = this.dbHelper.getProfilFromId(id);
             initViewWithProfil(profil);
         } else {
-            this.startWithID = -1;
+            this.startID = -1;
             Log.i("ProfilActivity", "start Activity without id");
         }
 
@@ -284,7 +285,7 @@ public class ProfilActivity extends AppCompatActivity {
     }
 
     public void pressButton(View view) {
-        if (this.startWithID >= 0) {
+        if (this.startID >= 0) {
             this.updateProfil(view);
         } else {
             this.profilErstellen(view);
@@ -314,7 +315,7 @@ public class ProfilActivity extends AppCompatActivity {
         String station = this.spinnerStation.getSelectedItem().toString();
 
         Profil profil = new Profil(name, richtung, selectedRichtung, minWind, selectedMinWind, zeitraum, selectedZeitraum, minTemp, selectedMinTemp, warnung, selectedWarnung, station);
-        int ergebnis = this.dbHelper.updateProfil(profil, this.startWithID);
+        int ergebnis = this.dbHelper.updateProfil(profil, this.startID);
         if (ergebnis == 0) {
             Context context = getApplicationContext();
             CharSequence text = "Das Profil wurde nicht geändert! ";
@@ -329,6 +330,7 @@ public class ProfilActivity extends AppCompatActivity {
 
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
+            Intent intent = new Intent(this, WetterActivity.class);
         }
     }
 
@@ -382,6 +384,9 @@ public class ProfilActivity extends AppCompatActivity {
 
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
+            Intent intent = new Intent(this, WetterActivity.class);
+            intent.putExtra(MainActivity.EXTRA_ID, rowId);
+            startActivity(intent);
         }
     }
 
