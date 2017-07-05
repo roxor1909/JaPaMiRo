@@ -17,16 +17,18 @@
     <string name="minTemp">°C</string>
     <string-array name="windrichtung">
         <item>N</item>
+        <item>NO</item>
         <item>O</item>
+        <item>OS</item>
         <item>S</item>
+        <item>SW</item>
         <item>W</item>
+        <item>NW</item>
     </string-array>
     <string-array name="stationen_namen">
         <item>Phönixsee Dortmund</item>
         <item>Bodensee Bayern</item>
     </string-array>
-    <string-array name="stationen_url">
-        <item>ftp://user:password@phoenixsee-dortmund.de/wetterstation</item>
-        <item>ftp://user:passwort@bodensee-baxern.de/wetterstation</item>
-    </string-array>
+    <string name="action_settings">Profil bearbeiten</string>
+
 </resources>
