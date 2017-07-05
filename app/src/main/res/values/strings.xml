@@ -17,22 +17,18 @@
     <string name="minTemp">°C</string>
     <string-array name="windrichtung">
         <item>N</item>
+        <item>NO</item>
         <item>O</item>
+        <item>OS</item>
         <item>S</item>
+        <item>SW</item>
         <item>W</item>
+        <item>NW</item>
     </string-array>
     <string-array name="stationen_namen">
         <item>Phönixsee Dortmund</item>
         <item>Bodensee Bayern</item>
     </string-array>
-    <string-array name="stationen_url">
-        <item>ftp://user:password@phoenixsee-dortmund.de/wetterstation</item>
-        <item>ftp://user:passwort@bodensee-baxern.de/wetterstation</item>
-    </string-array>
-    <string name="title_activity_wetter">Weatherly &amp; Windy</string>
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="action_settings">Profil bearbeiten</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

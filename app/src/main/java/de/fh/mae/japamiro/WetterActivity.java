@@ -35,6 +35,7 @@ public class WetterActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private long startID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +54,12 @@ public class WetterActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
-
+        Intent intent = getIntent();
+        if (intent.hasExtra(MainActivity.EXTRA_ID)) {
+            long id = intent.getLongExtra(MainActivity.EXTRA_ID, -1);
+            this.startID = id;
+            mSectionsPagerAdapter.setStartId(this.startID);
+        }
     }
 
 
@@ -71,18 +76,23 @@ public class WetterActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            sendIntentTo(ProfilActivity.class);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    private void sendIntentTo(Class to) {
+        Intent intent = new Intent(this, to);
+        intent.putExtra(MainActivity.EXTRA_ID, this.startID);
+        startActivity(intent);
+    }
+
 
     public void zeigeInfos(View v) {
-        Log.i("MainActivity", "zeige Info, Intent send");
         Intent intent = new Intent(v.getContext(), InfoActivity.class);
         startActivity(intent);
     }
@@ -94,8 +104,15 @@ public class WetterActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+        private long startId;
+
         public SectionsPagerAdapter(FragmentManager fm) {
+
             super(fm);
+        }
+
+        public void setStartId(long id) {
+            this.startId = id;
         }
 
         @Override
@@ -108,7 +125,11 @@ public class WetterActivity extends AppCompatActivity {
                 case 1:
                     return new WindFragment();
                 case 2:
-                    return new WindVerlaufFragment();
+                    WindVerlaufFragment fragement = new WindVerlaufFragment();
+                    Bundle args = new Bundle();
+                    args.putLong(MainActivity.EXTRA_ID, this.startId);
+                    fragement.setArguments(args);
+                    return fragement;
                 default:
                     return null;
             }

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -166,7 +167,7 @@ public class AppDbHelper extends SQLiteOpenHelper {
         return profil;
     }
 
-    public int updateProfil(Profil profil, long id) {
+    public int updateProfil(Profil profil, long id) throws SQLiteConstraintException {
         Log.i("AppDbHelper", "updateProfile");
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -186,7 +187,13 @@ public class AppDbHelper extends SQLiteOpenHelper {
 
         String selection = ProfilEntry._ID + " = ?";
         String[] selectionArgs = {Long.toString(id)};
-        return db.update(ProfilEntry.TABLE_NAME, values, selection, selectionArgs);
+        int rows = -1;
+        try {
+            rows = db.update(ProfilEntry.TABLE_NAME, values, selection, selectionArgs);
+        } catch (SQLiteConstraintException sqlLiteConstraintException) {
+            throw sqlLiteConstraintException;
+        }
+        return rows;
     }
 
     public String getNameFromId(long id) {
