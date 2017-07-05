@@ -14,9 +14,6 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity {
     private AppDbHelper dbHelper;
     public static final String EXTRA_ID = "de.fh.mae.japamiro.ID";
@@ -51,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                                     int position, long id) {
                 // The id parameter holds the _id from the Database
                 Log.i("MainActivity", "send Intent to Profilactivity with id = " + id);
-                Intent intent = new Intent(MainActivity.this, ProfilActivity.class);
+                Intent intent = new Intent(MainActivity.this, WetterActivity.class);
                 intent.putExtra(MainActivity.EXTRA_ID, id);
                 startActivity(intent);
             }
@@ -72,13 +69,6 @@ public class MainActivity extends AppCompatActivity {
         Log.i("MainActivity", "zeige Info, Intent send");
         Intent intent = new Intent(this, InfoActivity.class);
         startActivity(intent);
-    }
-
-    public void zeigeWindHistory( View v ) {
-        Intent intent = new Intent( this, WindVerlaufActivity.class);
-        long id = 1;
-        intent.putExtra(MainActivity.EXTRA_ID, id);
-        startActivity( intent );
     }
 
 

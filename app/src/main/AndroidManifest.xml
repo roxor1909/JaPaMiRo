@@ -19,11 +19,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".InfoActivity" />
-        <activity android:name=".ProfilActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".WindVerlaufActivity"
-                  android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".WindActivity"></activity>
+        <activity
+            android:name=".ProfilActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".WetterActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
