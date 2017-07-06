@@ -20,7 +20,7 @@ import de.fh.mae.japamiro.AppContract.*;
 
 public class AppDbHelper extends SQLiteOpenHelper {
 
-    // ToDo nach Finalisierung des Datenmodells erneut anpassen
+
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + ProfilEntry.TABLE_NAME + "( "
                     + ProfilEntry._ID + " INTEGER PRIMARY KEY, "
@@ -37,8 +37,21 @@ public class AppDbHelper extends SQLiteOpenHelper {
                     + ProfilEntry.COLUMN_NAME_SELECTED_MIN_TEMP + " BOOLEAN, "
                     + ProfilEntry.COLUMN_NAME_STATION + " STRING"
                     + ")";
+    private static final String SQL_CREATE_WEATHER_ENTRIES =
+            "CREATE TABLE " + WeatherEntry.TABLE_NAME + " ( "
+                    + WeatherEntry._ID + " INTEGER PRIMARY KEY, "
+                    + WeatherEntry.COLUMN_NAME_BFT + " INTEGER, "
+                    + WeatherEntry.COLUMN_NAME_METER_PRO_SEKUNDE + " DOUBLE, "
+                    + WeatherEntry.COLUMN_NAME_K_M_H + " DOUBLE "
+                    + WeatherEntry.COLUMN_NAME_KNOTEN + " DOUBLE, "
+                    + WeatherEntry.COLUMN_NAME_WINDRICHTUNG + " TEXT, "
+                    + WeatherEntry.COLUMN_NAME_TEMPERATUR + " DOUBLE, "
+                    + WeatherEntry.COLUMN_NAME_HUM + " DOUBLE, "
+                    + WeatherEntry.COLUMN_NAME_ZEITPUNKT + " DATE "
+                    + ")";
     private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + ProfilEntry.TABLE_NAME;
-    public static final int DATABASE_VERSION = 4;
+    private static final String SQL_DELETE_WEATHER_ENTRIES = "DROP TABLE IF EXISTS " + WeatherEntry.TABLE_NAME;
+    public static final int DATABASE_VERSION = 7;
     public static final String DATABASE_NAME = "App.db";
 
 
@@ -50,7 +63,9 @@ public class AppDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         db.execSQL(SQL_CREATE_ENTRIES);
+        db.execSQL(SQL_CREATE_WEATHER_ENTRIES);
     }
 
     @Override
@@ -58,26 +73,28 @@ public class AppDbHelper extends SQLiteOpenHelper {
         // ToDo Updatestrategie überlegen und implementieren
         // Momentan wird einfach alles gelöscht
         db.execSQL(SQL_DELETE_ENTRIES);
+        db.execSQL(SQL_DELETE_WEATHER_ENTRIES);
         onCreate(db);
     }
 
     public long addProfile(Profil profil) throws SQLException {
         long id = -1;
         SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ProfilEntry.COLUMN_NAME_NAME, profil.getName());
+        values.put(ProfilEntry.COLUMN_NAME_SELECTED_WINDRICHTUNG, profil.isSelectedWindrichtung());
+        values.put(ProfilEntry.COLUMN_NAME_WINDRICHTUNG, profil.getWindrichtung());
+        values.put(ProfilEntry.COLUMN_NAME_SELECTED_MIN_WIND, profil.isSelectedMinWindgeschwindigkeit());
+        values.put(ProfilEntry.COLUMN_NAME_MIN_WINDGESCHWINDIGKEIT, profil.getMinWindgeschwindigkeit());
+        values.put(ProfilEntry.COLUMN_NAME_SELECTED_ZEITRAUM, profil.isSelectedZeitraum());
+        values.put(ProfilEntry.COLUMN_NAME_ZEITRAUM, profil.getZeitraum());
+        values.put(ProfilEntry.COLUMN_NAME_SELECTED_MIN_TEMP, profil.isSelectedMinTemperatur());
+        values.put(ProfilEntry.COLUMN_NAME_MIN_TEMP, profil.getMinTemperatur());
+        values.put(ProfilEntry.COLUMN_NAME_SELECTED_WARNUNG, profil.isSelectedWarnung());
+        values.put(ProfilEntry.COLUMN_NAME_AKKU_WARNUNG, profil.getWarnung());
+        values.put(ProfilEntry.COLUMN_NAME_STATION, profil.getStation());
         try {
-            ContentValues values = new ContentValues();
-            values.put(ProfilEntry.COLUMN_NAME_NAME, profil.getName());
-            values.put(ProfilEntry.COLUMN_NAME_SELECTED_WINDRICHTUNG, profil.isSelectedWindrichtung());
-            values.put(ProfilEntry.COLUMN_NAME_WINDRICHTUNG, profil.getWindrichtung());
-            values.put(ProfilEntry.COLUMN_NAME_SELECTED_MIN_WIND, profil.isSelectedMinWindgeschwindigkeit());
-            values.put(ProfilEntry.COLUMN_NAME_MIN_WINDGESCHWINDIGKEIT, profil.getMinWindgeschwindigkeit());
-            values.put(ProfilEntry.COLUMN_NAME_SELECTED_ZEITRAUM, profil.isSelectedZeitraum());
-            values.put(ProfilEntry.COLUMN_NAME_ZEITRAUM, profil.getZeitraum());
-            values.put(ProfilEntry.COLUMN_NAME_SELECTED_MIN_TEMP, profil.isSelectedMinTemperatur());
-            values.put(ProfilEntry.COLUMN_NAME_MIN_TEMP, profil.getMinTemperatur());
-            values.put(ProfilEntry.COLUMN_NAME_SELECTED_WARNUNG, profil.isSelectedWarnung());
-            values.put(ProfilEntry.COLUMN_NAME_AKKU_WARNUNG, profil.getWarnung());
-            values.put(ProfilEntry.COLUMN_NAME_STATION, profil.getStation());
             id = db.insertOrThrow(ProfilEntry.TABLE_NAME, null, values);
 
         } finally {
@@ -216,5 +233,51 @@ public class AppDbHelper extends SQLiteOpenHelper {
         );
         cursor.moveToNext();
         return cursor.getString(cursor.getColumnIndex(ProfilEntry.COLUMN_NAME_NAME));
+    }
+
+    public long addWeather(Weather weather) throws SQLException {
+        long id = -1;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(WeatherEntry.COLUMN_NAME_BFT, weather.getBft());
+        values.put(WeatherEntry.COLUMN_NAME_KNOTEN, weather.getKnoten());
+        values.put(WeatherEntry.COLUMN_NAME_K_M_H, weather.getK_m_h());
+        values.put(WeatherEntry.COLUMN_NAME_METER_PRO_SEKUNDE, weather.getM_s());
+        values.put(WeatherEntry.COLUMN_NAME_WINDRICHTUNG, weather.getWindrichtung());
+        values.put(WeatherEntry.COLUMN_NAME_TEMPERATUR, weather.getTemperatur());
+        values.put(WeatherEntry.COLUMN_NAME_ZEITPUNKT, weather.getZeit().toString());
+        values.put(WeatherEntry.COLUMN_NAME_HUM, weather.getLuftdruck());
+
+        try {
+            id = db.insertOrThrow(WeatherEntry.TABLE_NAME, null, values);
+        } finally {
+            if (db != null) {
+                db.close();
+            }
+        }
+        return id;
+    }
+
+    public List<Weather> getWeather() {
+        SQLiteDatabase sql = this.getReadableDatabase();
+        Cursor cursor = sql.query(WeatherEntry.TABLE_NAME, null, null, null, null, null, null, null);
+        List<Weather> list = new ArrayList<Weather>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            list.add(this.cursorToWeather(cursor));
+            cursor.moveToNext();
+        }
+        return list;
+    }
+
+    private Weather cursorToWeather(Cursor cursor) {
+        Weather weather = new Weather();
+        weather.setBft(cursor.getInt(cursor.getColumnIndex(WeatherEntry.COLUMN_NAME_BFT)));
+        weather.setK_m_h(cursor.getInt(cursor.getColumnIndex(WeatherEntry.COLUMN_NAME_K_M_H)));
+        weather.setKnoten(cursor.getInt(cursor.getColumnIndex(WeatherEntry.COLUMN_NAME_KNOTEN)));
+        weather.setTemperatur(cursor.getDouble(cursor.getColumnIndex(WeatherEntry.COLUMN_NAME_TEMPERATUR)));
+        weather.setZeit(cursor.getString(cursor.getColumnIndex(WeatherEntry.COLUMN_NAME_ZEITPUNKT)));
+        // ToDo Rest setzen
+        return weather;
     }
 }
