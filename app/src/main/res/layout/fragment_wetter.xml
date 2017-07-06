@@ -1,68 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context="de.fh.mae.japamiro.WetterFragment">
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
 
-    <Button
-        android:id="@+id/button"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/relativLayoutWetter"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
         android:background="#FFFFFF"
-        android:drawableEnd="@drawable/ic_info_black_24dp"
-        android:drawableRight="@drawable/ic_info_black_24dp"
-        android:onClick="zeigeInfos"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toRightOf="@+id/textName"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:context="de.fh.mae.japamiro.WetterFragment">
 
-    <TextView
-        android:id="@+id/textName"
-        android:layout_width="163dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="  Jan Holland"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayoutWetter" />
+        <Button
+            android:id="@+id/button"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:background="#FFFFFF"
+            android:drawableEnd="@drawable/ic_info_black_24dp"
+            android:drawableRight="@drawable/ic_info_black_24dp"
+            android:onClick="zeigeInfos"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintLeft_toRightOf="@+id/textName"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/wListView"
-        android:layout_width="306dp"
-        android:layout_height="198dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.431"
-        android:layout_marginTop="8dp" />
+        <TextView
+            android:id="@+id/textName"
+            android:layout_width="163dp"
+            android:layout_height="81dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="  Jan Holland"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
 
     <TableLayout
         android:id="@+id/tableLayoutWetter"
-        android:layout_width="307dp"
-        android:layout_height="47dp"
-        app:layout_constraintBottom_toTopOf="@+id/wListView"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativLayoutWetter"
+        android:stretchColumns="*">
 
         <TableRow
             android:layout_width="match_parent"
@@ -72,17 +68,17 @@
 
             <TextView
                 android:id="@+id/vZeit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Zeit"
                 android:layout_margin="4dp"
                 android:padding="6dp"
-                android:text="Zeit"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/vLuftdruck"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:padding="6dp"
                 android:text="Luftdruck"
@@ -90,8 +86,8 @@
 
             <TextView
                 android:id="@+id/vTemp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:padding="6dp"
                 android:text="Temp"
@@ -99,8 +95,8 @@
 
             <TextView
                 android:id="@+id/vRegen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:padding="6dp"
                 android:text="Regen"
@@ -108,8 +104,14 @@
         </TableRow>
 
     </TableLayout>
+    <!--
+            <ListView
+                android:id="@+id/wListView"
+                android:layout_width="306dp"
+                android:layout_height="198dp" />
+                -->
 
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
 
 
