@@ -121,15 +121,23 @@ public class WetterActivity extends AppCompatActivity {
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position) {
                 case 0:
-                    return new WetterFragment();
-                case 1:
-                    return new WindFragment();
-                case 2:
-                    WindVerlaufFragment fragement = new WindVerlaufFragment();
+                    WetterFragment fragment = new WetterFragment();
                     Bundle args = new Bundle();
                     args.putLong(MainActivity.EXTRA_ID, this.startId);
-                    fragement.setArguments(args);
-                    return fragement;
+                    fragment.setArguments(args);
+                    return fragment;
+                case 1:
+                    WindFragment fragment2 = new WindFragment();
+                    Bundle args2 = new Bundle();
+                    args2.putLong(MainActivity.EXTRA_ID, this.startId);
+                    fragment2.setArguments(args2);
+                    return fragment2;
+                case 2:
+                    WindVerlaufFragment fragment3 = new WindVerlaufFragment();
+                    Bundle args3 = new Bundle();
+                    args3.putLong(MainActivity.EXTRA_ID, this.startId);
+                    fragment3.setArguments(args3);
+                    return fragment3;
                 default:
                     return null;
             }
@@ -149,8 +157,6 @@ public class WetterActivity extends AppCompatActivity {
                     return "Wind";
                 case 2:
                     return "Wind-Verlauf";
-                case 3:
-                    return "Einstellungen";
             }
             return null;
         }
