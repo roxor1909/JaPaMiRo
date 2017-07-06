@@ -1,9 +1,8 @@
 package de.fh.mae.japamiro;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +13,16 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class WindVerlaufFragment extends Fragment {
 
-    private ListView listView;
+public class WindVerlaufFragment extends Fragment {
     private TextView textView;
-    private AppDbHelper dbHelper;
     private long startID;
+    private AppDbHelper dbHelper;
+
+
+    public WindVerlaufFragment() {
+        // Required empty public constructor
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -28,11 +31,16 @@ public class WindVerlaufFragment extends Fragment {
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup group, Bundle bundle) {
 
-        View view = inflater.inflate(R.layout.fragment_wind_verlauf, group, false);
-        listView = (ListView) view.findViewById(R.id.wListView);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_wind_verlauf, container, false);
         textView = (TextView) view.findViewById(R.id.textName);
         Bundle args = getArguments();
         this.startID = args.getLong(MainActivity.EXTRA_ID, -1);
@@ -40,22 +48,18 @@ public class WindVerlaufFragment extends Fragment {
             String name = dbHelper.getNameFromId(startID);
             textView.setText(name);
         }
-        List<Weather> weatherList = null;
-        Log.i("WindVerlaufFragment", "onAttach");
-        Context context = inflater.getContext();
-        try {
-            XMLPullParserHandler parser = new XMLPullParserHandler();
-            weatherList = parser.parse(context.getAssets().open("wind_history.xml"));
-            ArrayAdapter<Weather> adapter =
-                    new ArrayAdapter<Weather>(context, R.layout.list_item, weatherList);
-
-            listView.setAdapter(adapter);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return view;
     }
 
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        this.dbHelper.close();
+    }
+
 }
+
+
+
+
