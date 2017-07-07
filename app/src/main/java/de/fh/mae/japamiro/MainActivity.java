@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("MainActivity", zeit);
                 weather.setZeit(zeit);
 
-                double temp = ThreadLocalRandom.current().nextDouble(10.0, 30.0);
+                double temp = ThreadLocalRandom.current().nextDouble(10.00, 30.00);
                 weather.setTemperatur(temp);
 
                 double regen = ThreadLocalRandom.current().nextDouble(10.0, 40.0);
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                 double luftdruckSchwankung = ThreadLocalRandom.current().nextDouble(-1.0, 1.0);
                 weather.setLuftdruck(last.getLuftdruck() + luftdruckSchwankung);
 
-                double kmh_schwankung = ThreadLocalRandom.current().nextDouble(-2.0, 2.0);
+                double kmh_schwankung = ThreadLocalRandom.current().nextDouble(-2.00, 2.00);
                 weather.setK_m_h(last.getK_m_h() + kmh_schwankung);
 
                 last = weather;

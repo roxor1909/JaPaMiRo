@@ -52,10 +52,49 @@
     </android.support.constraint.ConstraintLayout>
 
     <TextView
-        android:id="@+id/anzeige"
-        android:layout_width="wrap_content"
+        android:id="@+id/tViewZeit"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/HeaderLayout"
-        android:textSize="18sp"/>
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/anzeige"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tViewZeit"
+        android:textAlignment="center"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/anzeige">
+
+        <Button
+            android:id="@+id/buttonBFT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BFT" />
+
+        <Button
+            android:id="@+id/buttonKMH"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="KM/H" />
+
+        <Button
+            android:id="@+id/buttonKNOTEN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Knoten" />
+
+        <Button
+            android:id="@+id/buttonMS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="M/S" />
+    </LinearLayout>
 </RelativeLayout>
 

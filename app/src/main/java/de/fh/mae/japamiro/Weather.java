@@ -95,8 +95,7 @@ public class Weather {
 
     @Override
     public String toString() {
-        return zeit + "  " + luftdruck + "  hPa  " +
-                temperatur + " °C  " + regen + " %  ";
+        return "Zeit: " + zeit + " KMH " + this.k_m_h;
     }
 }
 
