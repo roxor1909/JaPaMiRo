@@ -140,6 +140,9 @@ public class MainActivity extends AppCompatActivity {
                 weather.setLuftdruck(last.getLuftdruck() + luftdruckSchwankung);
 
                 double kmh_schwankung = ThreadLocalRandom.current().nextDouble(-2.0, 2.0);
+                while (kmh_schwankung == 0.0) {
+                    kmh_schwankung = ThreadLocalRandom.current().nextDouble(-2.0, 2.0);
+                }
                 weather.setK_m_h(last.getK_m_h() + kmh_schwankung);
 
                 last = weather;
