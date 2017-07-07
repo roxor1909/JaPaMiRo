@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:paddingLeft="16dp">
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -70,10 +69,11 @@
                 android:id="@+id/vZeit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Zeit"
                 android:layout_margin="4dp"
                 android:padding="6dp"
-                android:textSize="18sp" />
+                android:text="Zeit"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/vLuftdruck"
@@ -82,7 +82,8 @@
                 android:layout_margin="4dp"
                 android:padding="6dp"
                 android:text="Luftdruck"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/vTemp"
@@ -91,7 +92,8 @@
                 android:layout_margin="4dp"
                 android:padding="6dp"
                 android:text="Temp"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/vRegen"
@@ -100,7 +102,8 @@
                 android:layout_margin="4dp"
                 android:padding="6dp"
                 android:text="Regen"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </TableRow>
 
     </TableLayout>

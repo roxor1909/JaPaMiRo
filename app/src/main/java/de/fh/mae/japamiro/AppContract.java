@@ -37,6 +37,6 @@ public final class AppContract {
         public static final String COLUMN_NAME_TEMPERATUR = "Temperatur";
         public static final String COLUMN_NAME_HUM = "Hum";
         public static final String COLUMN_NAME_ZEITPUNKT = "Zeitpunkt";
-
+        public static final String COLUMN_NAME_LUFTDRUCK = "Luftdruck";
     }
 }

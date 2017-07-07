@@ -42,23 +42,29 @@ public class AppDbHelper extends SQLiteOpenHelper {
                     + WeatherEntry._ID + " INTEGER PRIMARY KEY, "
                     + WeatherEntry.COLUMN_NAME_BFT + " INTEGER, "
                     + WeatherEntry.COLUMN_NAME_METER_PRO_SEKUNDE + " DOUBLE, "
-                    + WeatherEntry.COLUMN_NAME_K_M_H + " DOUBLE "
+                    + WeatherEntry.COLUMN_NAME_K_M_H + " DOUBLE, "
                     + WeatherEntry.COLUMN_NAME_KNOTEN + " DOUBLE, "
                     + WeatherEntry.COLUMN_NAME_WINDRICHTUNG + " TEXT, "
                     + WeatherEntry.COLUMN_NAME_TEMPERATUR + " DOUBLE, "
                     + WeatherEntry.COLUMN_NAME_HUM + " DOUBLE, "
-                    + WeatherEntry.COLUMN_NAME_ZEITPUNKT + " DATE "
+                    + WeatherEntry.COLUMN_NAME_ZEITPUNKT + " String, "
+                    + WeatherEntry.COLUMN_NAME_LUFTDRUCK + " Double"
                     + ")";
     private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + ProfilEntry.TABLE_NAME;
     private static final String SQL_DELETE_WEATHER_ENTRIES = "DROP TABLE IF EXISTS " + WeatherEntry.TABLE_NAME;
-    public static final int DATABASE_VERSION = 7;
+    public static final int DATABASE_VERSION = 11;
     public static final String DATABASE_NAME = "App.db";
 
 
     public AppDbHelper(Context context) {
 
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        Log.i("AppDbHelper", SQL_CREATE_ENTRIES);
+        Weather w = new Weather();
+        w.setZeit("12:50");
+        w.setTemperatur(12.5);
+        w.setLuftdruck(80.0);
+        w.setRegen(20.0);
+        //this.addWeather(w);
     }
 
     @Override
@@ -245,8 +251,9 @@ public class AppDbHelper extends SQLiteOpenHelper {
         values.put(WeatherEntry.COLUMN_NAME_METER_PRO_SEKUNDE, weather.getM_s());
         values.put(WeatherEntry.COLUMN_NAME_WINDRICHTUNG, weather.getWindrichtung());
         values.put(WeatherEntry.COLUMN_NAME_TEMPERATUR, weather.getTemperatur());
-        values.put(WeatherEntry.COLUMN_NAME_ZEITPUNKT, weather.getZeit().toString());
-        values.put(WeatherEntry.COLUMN_NAME_HUM, weather.getLuftdruck());
+        values.put(WeatherEntry.COLUMN_NAME_ZEITPUNKT, weather.getZeit());
+        values.put(WeatherEntry.COLUMN_NAME_HUM, weather.getRegen());
+        values.put(WeatherEntry.COLUMN_NAME_LUFTDRUCK, weather.getLuftdruck());
 
         try {
             id = db.insertOrThrow(WeatherEntry.TABLE_NAME, null, values);
@@ -277,6 +284,8 @@ public class AppDbHelper extends SQLiteOpenHelper {
         weather.setKnoten(cursor.getInt(cursor.getColumnIndex(WeatherEntry.COLUMN_NAME_KNOTEN)));
         weather.setTemperatur(cursor.getDouble(cursor.getColumnIndex(WeatherEntry.COLUMN_NAME_TEMPERATUR)));
         weather.setZeit(cursor.getString(cursor.getColumnIndex(WeatherEntry.COLUMN_NAME_ZEITPUNKT)));
+        weather.setLuftdruck(cursor.getDouble(cursor.getColumnIndex(WeatherEntry.COLUMN_NAME_LUFTDRUCK)));
+        weather.setRegen(cursor.getDouble(cursor.getColumnIndex(WeatherEntry.COLUMN_NAME_HUM)));
         // ToDo Rest setzen
         return weather;
     }
