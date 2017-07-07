@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("MainActivity", zeit);
                 weather.setZeit(zeit);
 
-                double temp = ThreadLocalRandom.current().nextDouble(10.0, 30.0);
+                double temp = ThreadLocalRandom.current().nextDouble(10.00, 30.00);
                 weather.setTemperatur(temp);
 
                 double regen = ThreadLocalRandom.current().nextDouble(10.0, 40.0);

@@ -23,7 +23,6 @@ import java.util.List;
 
 public class WetterFragment extends Fragment {
 
-    private ListView listView;
     private TextView textView;
     private AppDbHelper dbHelper;
     private long startID;
@@ -38,10 +37,8 @@ public class WetterFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup group, Bundle bundle) {
-
         View view = inflater.inflate(R.layout.fragment_wetter, group, false);
         tableLayout = (TableLayout) view.findViewById(R.id.tableLayoutWetter);
-        //listView = (ListView) view.findViewById(R.id.wListView);
         textView = (TextView) view.findViewById(R.id.textName);
         Bundle args = getArguments();
         this.startID = args.getLong(MainActivity.EXTRA_ID, -1);
@@ -64,6 +61,7 @@ public class WetterFragment extends Fragment {
         super.onDetach();
         this.dbHelper.close();
     }
+
 
     private void addWeather(Context context, Weather w) {
         if (w != null) {
