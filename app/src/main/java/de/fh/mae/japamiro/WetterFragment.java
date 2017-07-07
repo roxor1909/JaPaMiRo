@@ -70,31 +70,33 @@ public class WetterFragment extends Fragment {
             TableRow.LayoutParams rowParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT);
 
             Resources r = getResources();
-            float margin = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, r.getDisplayMetrics());
-            rowParams.setMargins(Math.round(margin), 0, 0, Math.round(margin));
+            float margin2 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, r.getDisplayMetrics());
+            float margin6 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6, r.getDisplayMetrics());
+            float margin4 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, r.getDisplayMetrics());
+
+            rowParams.setMargins(Math.round(margin2), 0, 0, Math.round(margin2));
             row.setLayoutParams(rowParams);
 
-            float margin4 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, r.getDisplayMetrics());
             TableRow.LayoutParams textParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT);
             textParams.setMargins(Math.round(margin4), 0, 0, Math.round(margin4));
             TextView textView = new TextView(this.getContext());
             textView.setText(w.getZeit());
 
-            float margin6 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6, r.getDisplayMetrics());
             textView.setPaddingRelative(Math.round(margin6), Math.round(margin6), Math.round(margin6), Math.round(margin6));
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-            // textView.setLayoutParams(textParams);
+            textView.setLayoutParams(textParams);
             row.addView(textView);
 
             TextView textView2 = new TextView(this.getContext());
-            textView2.setText(Double.toString(w.getLuftdruck()));
+            textView2.setText(Double.toString(w.getLuftdruck())+"hPa");
             textView2.setPaddingRelative(Math.round(margin6), Math.round(margin6), Math.round(margin6), Math.round(margin6));
             textView2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-            textView2.setLayoutParams(textParams);
+            TableRow.LayoutParams textParams2 = textParams;
+            textView2.setLayoutParams(textParams2);
             row.addView(textView2);
 
             TextView textView3 = new TextView(this.getContext());
-            textView3.setText(Double.toString(w.getTemperatur()));
+            textView3.setText(Double.toString(w.getTemperatur())+"°C");
             textView3.setPaddingRelative(Math.round(margin6), Math.round(margin6), Math.round(margin6), Math.round(margin6));
             textView3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
             textView3.setLayoutParams(textParams);
@@ -102,7 +104,7 @@ public class WetterFragment extends Fragment {
             row.addView(textView3);
 
             TextView textView4 = new TextView(this.getContext());
-            textView4.setText(Double.toString(w.getRegen()));
+            textView4.setText(Double.toString(w.getRegen()) + "%");
             textView4.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
             textView4.setPaddingRelative(Math.round(margin6), Math.round(margin6), Math.round(margin6), Math.round(margin6));
             textView4.setLayoutParams(textParams);
