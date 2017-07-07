@@ -52,7 +52,7 @@ public class AppDbHelper extends SQLiteOpenHelper {
                     + ")";
     private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + ProfilEntry.TABLE_NAME;
     private static final String SQL_DELETE_WEATHER_ENTRIES = "DROP TABLE IF EXISTS " + WeatherEntry.TABLE_NAME;
-    public static final int DATABASE_VERSION = 11;
+    public static final int DATABASE_VERSION = 12;
     public static final String DATABASE_NAME = "App.db";
 
 
@@ -105,7 +105,6 @@ public class AppDbHelper extends SQLiteOpenHelper {
 
         } finally {
             if (db != null) {
-                db.close();
             }
         }
         Log.i("AppDbHelper ", "ID: " + id);
@@ -259,7 +258,6 @@ public class AppDbHelper extends SQLiteOpenHelper {
             id = db.insertOrThrow(WeatherEntry.TABLE_NAME, null, values);
         } finally {
             if (db != null) {
-                db.close();
             }
         }
         return id;
@@ -267,7 +265,8 @@ public class AppDbHelper extends SQLiteOpenHelper {
 
     public List<Weather> getWeather() {
         SQLiteDatabase sql = this.getReadableDatabase();
-        Cursor cursor = sql.query(WeatherEntry.TABLE_NAME, null, null, null, null, null, null, null);
+        String order = WeatherEntry._ID + " DESC";
+        Cursor cursor = sql.query(WeatherEntry.TABLE_NAME, null, null, null, null, null, order, null);
         List<Weather> list = new ArrayList<Weather>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -288,5 +287,24 @@ public class AppDbHelper extends SQLiteOpenHelper {
         weather.setRegen(cursor.getDouble(cursor.getColumnIndex(WeatherEntry.COLUMN_NAME_HUM)));
         // ToDo Rest setzen
         return weather;
+    }
+
+    public void deleteWheaterEntites() {
+        SQLiteDatabase sql = this.getWritableDatabase();
+        String statement = "DELETE FROM " + WeatherEntry.TABLE_NAME;
+        sql.execSQL(statement);
+    }
+
+    public Weather getAktuellsteWeather() {
+        SQLiteDatabase sql = this.getReadableDatabase();
+        Weather weather = null;
+        Cursor cursor = sql.query(WeatherEntry.TABLE_NAME, null, WeatherEntry._ID + "=(SELECT MAX(" + WeatherEntry._ID + ") as " + WeatherEntry._ID +
+                " FROM " + WeatherEntry.TABLE_NAME + ")", null, null, null, null, null);
+        if (!(cursor.moveToFirst()) || cursor.getCount() == 0) {
+            return null;
+        } else {
+            weather = this.cursorToWeather(cursor);
+            return weather;
+        }
     }
 }

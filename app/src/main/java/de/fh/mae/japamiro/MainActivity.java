@@ -14,6 +14,14 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.ThreadLocalRandom;
+
 public class MainActivity extends AppCompatActivity {
     private AppDbHelper dbHelper;
     public static final String EXTRA_ID = "de.fh.mae.japamiro.ID";
@@ -25,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         dbHelper = new AppDbHelper(this);
         Log.i("mainActivity", "on Create");
         this.initListView();
+        this.initTimer();
     }
 
     @Override
@@ -69,6 +78,76 @@ public class MainActivity extends AppCompatActivity {
         Log.i("MainActivity", "zeige Info, Intent send");
         Intent intent = new Intent(this, InfoActivity.class);
         startActivity(intent);
+    }
+
+    private void initTimer() {
+        Log.e("MainActivity", "Timer init");
+        Timer timer = new Timer();
+        TimerTask minuteTask = new MinuteTask(this.dbHelper);
+        timer.schedule(minuteTask, 0L, 1000 * 60);
+    }
+
+    private class MinuteTask extends TimerTask {
+        private AppDbHelper dbHelper;
+        private Weather last;
+
+        public MinuteTask(AppDbHelper dbHelper) {
+            super();
+            this.dbHelper = dbHelper;
+            this.dbHelper.deleteWheaterEntites();
+            this.last = null;
+        }
+
+        @Override
+        public void run() {
+            if (last == null) {
+                Weather weather = new Weather();
+                Log.e("MainActivity", "Timer run");
+                Calendar now = new GregorianCalendar();
+                String zeit = now.get(Calendar.HOUR_OF_DAY) + " : " + now.get(Calendar.MINUTE);
+                Log.e("MainActivity", zeit);
+                weather.setZeit(zeit);
+
+                double temp = ThreadLocalRandom.current().nextDouble(10.0, 30.0);
+                weather.setTemperatur(temp);
+
+                double regen = ThreadLocalRandom.current().nextDouble(10.0, 40.0);
+                weather.setRegen(regen);
+
+                double luftdruck = ThreadLocalRandom.current().nextDouble(1000.00, 1013.12);
+                weather.setLuftdruck(luftdruck);
+
+                double kmh = ThreadLocalRandom.current().nextDouble(15.00, 25.00);
+                weather.setK_m_h(kmh);
+
+                last = weather;
+                this.dbHelper.addWeather(weather);
+            } else {
+                Weather weather = new Weather();
+                Log.e("MainActivity", "Timer run");
+                Calendar now = new GregorianCalendar();
+                String zeit = now.get(Calendar.HOUR_OF_DAY) + " : " + now.get(Calendar.MINUTE);
+                Log.e("MainActivity", zeit);
+                weather.setZeit(zeit);
+
+                double tempSchwankung = ThreadLocalRandom.current().nextDouble(-2.0, 2.0);
+                weather.setTemperatur(last.getTemperatur() + tempSchwankung);
+
+                double regenSchwankung = ThreadLocalRandom.current().nextDouble(-3.0, 3.0);
+                weather.setRegen(last.getRegen() + regenSchwankung);
+
+                double luftdruckSchwankung = ThreadLocalRandom.current().nextDouble(-1.0, 1.0);
+                weather.setLuftdruck(last.getLuftdruck() + luftdruckSchwankung);
+
+                double kmh_schwankung = ThreadLocalRandom.current().nextDouble(-2.0, 2.0);
+                weather.setK_m_h(last.getK_m_h() + kmh_schwankung);
+
+                last = weather;
+                this.dbHelper.addWeather(weather);
+            }
+
+
+        }
     }
 
 
