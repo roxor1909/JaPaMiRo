@@ -17,6 +17,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class WetterFragment extends Fragment {
@@ -88,7 +90,7 @@ public class WetterFragment extends Fragment {
             row.addView(textView);
 
             TextView textView2 = new TextView(this.getContext());
-            textView2.setText(Double.toString(w.getLuftdruck())+"hPa");
+            textView2.setText(formatDouble(w.getLuftdruck()) + "hPa");
             textView2.setPaddingRelative(Math.round(margin6), Math.round(margin6), Math.round(margin6), Math.round(margin6));
             textView2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
             TableRow.LayoutParams textParams2 = textParams;
@@ -96,7 +98,7 @@ public class WetterFragment extends Fragment {
             row.addView(textView2);
 
             TextView textView3 = new TextView(this.getContext());
-            textView3.setText(Double.toString(w.getTemperatur())+"°C");
+            textView3.setText(formatDouble(w.getTemperatur()) + "°C");
             textView3.setPaddingRelative(Math.round(margin6), Math.round(margin6), Math.round(margin6), Math.round(margin6));
             textView3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
             textView3.setLayoutParams(textParams);
@@ -104,13 +106,20 @@ public class WetterFragment extends Fragment {
             row.addView(textView3);
 
             TextView textView4 = new TextView(this.getContext());
-            textView4.setText(Double.toString(w.getRegen()) + "%");
+            textView4.setText(formatDouble(w.getRegen()) + "%");
             textView4.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
             textView4.setPaddingRelative(Math.round(margin6), Math.round(margin6), Math.round(margin6), Math.round(margin6));
             textView4.setLayoutParams(textParams);
             row.addView(textView4);
             tableLayout.addView(row);
         }
+    }
+
+    private String formatDouble(double d) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
+
+        return df.format(d);
     }
 
 
